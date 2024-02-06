@@ -1,0 +1,99 @@
+<div class="container mt-3">
+    <div class="progress" *ngIf="busy">
+        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+    </div>
+    <br />
+
+    <div class="row">
+        <div class="col-sm-1">
+            <button type="button" class="btn btn-outline-light" (click)="goBack()">
+                <h4><i class="bi bi-arrow-left"></i></h4>
+            </button>
+        </div>
+        <div class="col-sm-8">
+            <h1 class="center">Create User</h1><br>
+        </div>
+        <div class="col-sm-2">
+            <button type="submit" class="btn btn-outline-primary w-100 float-right" (click)="callCreateUser()">
+                Save
+            </button>
+        </div>
+    </div>
+    <div class="container">
+        <form #f="ngForm" [formGroup]="form" id="userForm">
+            <div class="row">
+                <div class="col-sm-4">
+                    <label for="companyId" class="form-label">Company</label>
+                    <select class="form-select" id="companyId" #companyId name="companyId" formControlName="companyId" placeholder="Company" required>
+                        <option *ngFor="let company of companies" [value]="company.id">
+                            {{ company.name }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-sm-4">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" class="form-control" id="name" name="name" formControlName="name" placeholder="Name" required />
+                </div>
+
+                <div class="col-sm-4">
+                    <label for="username" class="form-label">Username (Email)</label>
+                    <input type="email" class="form-control" id="username" name="username" formControlName="username" placeholder="Email" required />
+                </div>
+                <div class="col-sm-4">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" formControlName="password" placeholder="Password" required />
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-sm-4">
+                    <label for="roleId" class="form-label">User Type</label>
+                    <select class="form-select" id="userTypeId" #userType name="userTypeId" (change)="isAdmin(userType.value)" formControlName="userTypeId" placeholder="User Type" required>
+                        <option value="" selected disabled>Choose User Type</option>
+                        <option *ngFor="let userType of userTypes" [value]="userType.id">
+                            {{ userType.name }}
+                        </option>
+                    </select>
+                </div>
+
+                <div class="col-sm-4">
+                    <label for="roleId" class="form-label">Role</label>
+                    <select class="form-select" id="roleId" name="roleId" formControlName="roleId" placeholder="Role" required>
+                        <option value="" selected disabled>Choose Role</option>
+                        <option *ngFor="let role of roles" [value]="role.id">
+                            {{ role.role }}
+                        </option>
+                    </select>
+                </div>
+
+                <div class="col-sm-4">
+                    <label for="roleId" class="form-label">Store</label>
+                    <select class="form-select" id="storeId" name="storeId" formControlName="storeId" placeholder="Store" required>
+                        <option value="" selected disabled>Choose Store</option>
+                        <option *ngFor="let store of stores" [value]="store.id">
+                            {{ store.name }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-sm-6">
+                    <label for="avatar" class="form-label">Avatar</label>
+                    <input type="file" class="form-control" id="avatar" name="avatar" accept="image/*" formControlName="avatar" (change)="getFile($event)" />
+                </div>
+            </div>
+
+            <br>
+            <div class="col-sm-6">
+                <div class="form-check form-switch">
+                    <input type="checkbox" class="form-check-input" id="status" name="status" formControlName="status" />
+                    <label class="form-check-label" for="status">Status</label>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

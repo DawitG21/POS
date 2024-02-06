@@ -1,0 +1,90 @@
+<!-- main.ts -->
+import { Component, ViewEncapsulation } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import * as $ from 'jquery';
+import 'datatables.net';
+import 'datatables.net-bs5';
+
+@Component({
+  selector: 'table-plugins',
+  templateUrl: './table-plugins.html',
+  styleUrls: [ './table-plugins.css' ],
+  encapsulation: ViewEncapsulation.None
+})
+
+export class TablePluginsPage {
+  data1: any;
+  finishLoad: boolean = false;
+  private dataTable: any;
+  private tableOptions: any = {};
+
+  constructor(private http: HttpClient) { }
+  
+  ngOnInit() {
+    this.http.get('assets/data/table-plugins/data-1.json', { responseType: 'json' }).subscribe(data => {
+      this.data1 = data;
+    });
+  }
+  
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.tableOptions = {
+        dom: "<'row mb-3'<'col-md-4 mb-3 mb-md-0'l><'col-md-8 text-right'<'d-flex justify-content-end'fB>>><'table-responsive't><'row align-items-center'<'mr-auto col-md-6 mb-3 mb-md-0 mt-n2 'i><'mb-0 col-md-6'p>>",
+        lengthMenu: [ 10, 20, 30, 40, 50 ]
+      };
+      this.dataTable = $('#datatableDefault').DataTable(this.tableOptions);
+      this.finishLoad = true;
+    }, 100);
+  }
+}
+
+
+<!-- main.css -->
+@import '~datatables.net-bs5/css/dataTables.bootstrap5.min.css';
+
+
+<!-- data.json -->
+[{
+  "id": "1.",
+  "name": "Tiger Nixon",
+  "position": "System Architect",
+  "office": "Edinburgh",
+  "age": "61",
+  "date": "2011/04/25",
+  "salary": "$320,800"
+},{
+  "id": "2.",
+  "name": "Garrett Winters",
+  "position": "Accountant",
+  "office": "Tokyo",
+  "age": "63",
+  "date": "2011/07/25",
+  "salary": "$170,750"
+}]
+
+
+<!-- html -->
+<table id="datatableDefault" class="table text-nowrap w-100" [ngClass]="{'d-none': !finishLoad}">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Name</th>
+      <th>Position</th>
+      <th>Office</th>
+      <th>Age</th>
+      <th>Start Date</th>
+      <th>Salary</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of data1; let i = index">
+      <td>{{data.id}}.</td>
+      <td>{{data.name}}</td>
+      <td>{{data.position}}</td>
+      <td>{{data.office}}</td>
+      <td>{{data.age}}</td>
+      <td>{{data.date}}</td>
+      <td>{{data.salary}}</td>
+    </tr>
+  </tbody>
+</table>

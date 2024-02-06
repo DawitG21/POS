@@ -1,0 +1,96 @@
+body ngb-datepicker {
+	& .ngb-dp-header {
+		background: none;
+		padding-top: $spacer * .5;
+		padding-bottom: $spacer * .25;
+		
+		& .ngb-dp-arrow {
+			& .ngb-dp-arrow-btn {
+				color: rgba(var(--#{$prefix}inverse-rgb), .5);
+				
+				&:hover {
+					color: rgba(var(--#{$prefix}inverse-rgb), 1);
+				}
+			}
+		}
+		& .ngb-dp-navigation-select {
+			& .form-select {
+				margin: 0 $spacer * .25;
+			}
+		}
+	}
+	& .ngb-dp-content {
+		&.ngb-dp-months {
+			background: none;
+			
+			& .ngb-dp-month {
+				flex: 1;
+				
+				& .ngb-dp-month-name {
+					background: none;
+					line-height: $line-height-base;
+					padding-top: $spacer * .25;
+					height: auto;
+				}
+				& .ngb-dp-weekdays {
+					background: none;
+					font-family: inherit;
+					font-weight: $font-weight-bold;
+					margin-bottom: $spacer * .25;
+					
+					& .ngb-dp-weekday {
+						height: 2rem;
+						color: rgba(var(--#{$prefix}inverse-rgb), 1);
+					}
+				}
+				
+				& .ngb-dp-week {
+					& .ngb-dp-day {
+						& .btn-light {
+							outline: none !important;
+							width: 100%;
+							height: 2rem;
+							text-align: center;
+							height: 2rem;
+							line-height: 2rem;
+							background: transparent;
+							display: block;
+							
+							&:hover {
+								background: rgba(var(--#{$prefix}inverse-rgb), .15);
+							}
+							
+							&.bg-primary,
+							&.range {
+								background: var(--#{$prefix}theme) !important;
+								color: var(--#{$prefix}theme-color) !important;
+								
+								&.faded {
+									background: rgba(var(--#{$prefix}inverse-rgb), .15) !important;
+									color: var(--#{$prefix}body-color) !important;
+								}
+							}
+						}
+						&.ngb-dp-today {
+							& .btn-light {
+								background: rgba(var(--#{$prefix}inverse-rgb), .15);
+							}
+						}
+					}
+				}
+			}
+		}
+		& .ngb-dp-weekday, 
+		& .ngb-dp-week-number {
+			font-style: initial;
+		}
+		& .ngb-dp-day, 
+		& .ngb-dp-weekday, 
+		& .ngb-dp-week-number {
+			width: auto;
+			height: 2.25rem;
+			min-width: 2.5rem;
+			flex: 1;
+		}
+	}
+}

@@ -1,0 +1,40 @@
+<ng-scrollbar class="app-sidebar-content" data-scrollbar="true" data-height="100%">
+  <div class="menu">
+    <ng-template ngFor let-menu [ngForOf]="menus">
+      <div *ngIf="menu.is_header">
+        <div class="menu-header">{{ menu.text }}</div>
+      </div>
+      <div *ngIf="menu.is_divider">
+        <div class="menu-divider"></div>
+      </div>
+      <div *ngIf="!menu.is_divider && !menu.is_header" class="menu-item" [ngClass]="{
+          active:
+            (menu.path && isActive(menu.path)) ||
+            (menu.children && isChildActive(menu.children)),
+          'has-sub': menu.children
+        }">
+        <a [routerLink]="!menu.children ? menu.path : null" class="menu-link"
+          (click)="menu.children ? handleExpandSubmenu($event) : null" *ngIf="isShowMainMenu(menu.accessBy, menu.children)">
+          <span class="menu-icon"><i [ngClass]="menu.icon"></i></span>
+          <span class="menu-text">{{ menu.text }}</span>
+          <span class="menu-caret" *ngIf="menu.children"><b class="caret"></b></span>
+        </a>
+        <div class="menu-submenu" *ngIf="menu.children">
+          <ng-template ngFor let-childmenu [ngForOf]="menu.children">
+            <div class="menu-item" [ngClass]="{ active: isActive(childmenu.path) }">
+              <a [routerLink]="childmenu.path" class="menu-link" *ngIf="isShowMenu(childmenu.flag)">
+                <span class="menu-icon"><i [ngClass]="childmenu.icon"></i></span>
+                <span class="menu-text">{{ childmenu.text }}</span>
+              </a>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+  <!-- <div class="p-3 px-4 mt-auto">
+		<a href="https://seantheme.com/hud-angular/documentation/index.html" target="_blank" class="btn d-block btn-outline-theme">
+			<i class="fa fa-code-branch me-2 ms-n2 opacity-5"></i> Documentation
+		</a>
+	</div> -->
+</ng-scrollbar>

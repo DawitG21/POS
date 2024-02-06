@@ -1,0 +1,1 @@
+import { AppSettings } from '../../../service/app-settings.service';@Component({  selector: 'layout-mixed-nav',  templateUrl: './layout-mixed-nav.html'})export class LayoutMixedNavPage {  constructor(private appSettings: AppSettings) { }    ngOnInit() {    this.appSettings.appTopNav = true;  }  ngOnDestroy() {    this.appSettings.appTopNav = false;  }}

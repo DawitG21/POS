@@ -1,0 +1,1 @@
+import { AppSettings } from '../../../service/app-settings.service';@Component({  selector: 'layout-fixed-footer',  templateUrl: './layout-fixed-footer.html'})export class LayoutFixedFooterPage {  constructor(private appSettings: AppSettings) { }    ngOnInit() {    this.appSettings.appFooter = true;  }  ngOnDestroy() {    this.appSettings.appFooter = false;  }}

@@ -1,0 +1,94 @@
+import { Component } from '@angular/core';
+import { NgbDateStruct, 
+         NgbCalendar, 
+         NgbDate, 
+         NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
+
+@Component({
+  selector: 'form-plugins',
+  templateUrl: './form-plugins.html'
+})
+
+export class FormPluginsPage {
+  daterangepickerFromDate: NgbDate | null;
+  daterangepickerToDate: NgbDate | null;
+  daterangepickerHoveredDate: NgbDate | null = null;
+  
+  constructor(private calendar: NgbCalendar, public formatter: NgbDateParserFormatter) {
+    this.daterangepickerFromDate = calendar.getToday();
+    this.daterangepickerToDate = calendar.getNext(calendar.getToday(), 'd', 10);
+  }
+  
+  onDateSelection(date: NgbDate) {
+    if (!this.daterangepickerFromDate && !this.daterangepickerToDate) {
+      this.daterangepickerFromDate = date;
+    } else if (this.daterangepickerFromDate && !this.daterangepickerToDate && date && date.after(this.daterangepickerFromDate)) {
+      this.daterangepickerToDate = date;
+    } else {
+      this.daterangepickerToDate = null;
+      this.daterangepickerFromDate = date;
+    }
+  }
+  
+  isHovered(date: NgbDate) {
+    return (
+      this.daterangepickerFromDate && !this.daterangepickerToDate && this.daterangepickerHoveredDate && date.after(this.daterangepickerFromDate) && date.before(this.daterangepickerHoveredDate)
+    );
+  }
+
+  isInside(date: NgbDate) {
+    return this.daterangepickerToDate && date.after(this.daterangepickerFromDate) && date.before(this.daterangepickerToDate);
+  }
+
+  isRange(date: NgbDate) {
+    return (
+      date.equals(this.daterangepickerFromDate) ||
+      (this.daterangepickerToDate && date.equals(this.daterangepickerToDate)) ||
+      this.isInside(date) ||
+      this.isHovered(date)
+    );
+  }
+  
+  validateInput(currentValue: NgbDate | null, input: string): NgbDate | null {
+    const parsed = this.formatter.parse(input);
+    return parsed && this.calendar.isValid(NgbDate.from(parsed)) ? NgbDate.from(parsed) : currentValue;
+  }
+}
+
+
+<!-- html -->
+<div class="position-absolute">
+  <div class="input-group">
+    <input name="datepicker" class="form-control invisible" 
+      ngbDatepicker
+      #datepicker="ngbDatepicker"
+      [autoClose]="'outside'"
+      (dateSelect)="onDateSelection($event)"
+      [displayMonths]="2"
+      [dayTemplate]="t"
+      outsideDays="hidden"
+      [startDate]="daterangepickerFromDate!"
+      tabindex="-1"
+    />
+    <ng-template #t let-date let-focused="focused">
+      <span class="btn-light" [class.focused]="focused" [class.range]="isRange(date)" [class.faded]="isHovered(date) || isInside(date)" (mouseenter)="daterangepickerHoveredDate = date" (mouseleave)="daterangepickerHoveredDate = null">
+        {{ date.day }}
+      </span>
+    </ng-template>
+  </div>
+</div>
+<div class="input-group">
+  <input name="dpFromDate" placeholder="yyyy-mm-dd" class="form-control"
+    #datepickerFromDate
+    [value]="formatter.format(daterangepickerFromDate)"
+    (input)="daterangepickerFromDate = validateInput(daterangepickerFromDate, datepickerFromDate.value)"
+    (click)="datepicker.toggle()"
+  />
+  <span class="input-group-text">to</span>
+  <input class="form-control" placeholder="yyyy-mm-dd" name="dpToDate"
+    #datepickerToDate
+    [value]="formatter.format(daterangepickerToDate)"
+    (input)="daterangepickerToDate = validateInput(daterangepickerToDate, datepickerToDate.value)"
+    (click)="datepicker.toggle()"
+  />
+</div>

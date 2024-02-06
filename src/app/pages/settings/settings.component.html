@@ -1,0 +1,144 @@
+<div>
+
+    <h2>Settings</h2>
+    <div class="progress" *ngIf="busy">
+        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+    </div>
+    <br>
+
+    <!-- Button to open the modal -->
+    <!-- Search and Page Controls -->
+    <div class="d-flex justify-content-between mb-2">
+        <!-- Page Size Dropdown (Left side) -->
+
+        <!-- Search Box (Centered) -->
+        <div class="col-md-4 d-flex justify-content-start">
+            <input type="text" class="form-control" placeholder="Search" />
+        </div>
+
+
+        <!-- Add Tax button (Right side) -->
+        <div class="col-md-6 d-flex justify-content-end">
+            <button class="btn btn-outline-theme btn-lg" *ngIf="claims && claims.create_settings" (click)="goCreateSetting()">Add Setting</button>
+        </div>
+    </div>
+
+
+
+    <!-- Bootstrap table -->
+    <table class="table  table-hover mt-3">
+        <thead class="table-light">
+            <tr>
+                <th>Cash on Hand</th>
+                <th>Cog</th>
+                <th>Discount</th>
+                <th>VAT</th>
+                <th>Accounts Receivable</th>
+                <th>Sales Revenue</th>
+                <th>Payable Account</th>
+
+
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Add table rows dynamically based on your data -->
+            <tr *ngFor="let item of settings | filterUnits: searchTerm">
+                <td>{{ item.cashonhand }}</td>
+                <td>{{ item.cogs }}</td>
+                <td>{{ item.discount }}</td>
+                <td>{{ item.vat }}</td>
+
+                <td>{{ item.accountsreceivable }}</td>
+
+                <td>{{ item.salesrevenue }}</td>
+                <td>{{ item.accountspayable }}</td>
+                <td>
+                    <button mat-icon-button class="btn btn-outline-success me-3" matTooltip="View" (click)="view(item)">
+              <i class="bi bi-eye icon-xxl"></i>
+            </button>
+
+                    <button mat-icon-button class="btn btn-outline-primary me-3" matTooltip="edit" *ngIf="claims && claims.create_settings" (click)="goEditSetting(item)">
+              <i class="bi bi-pencil icon-xxl"></i>
+            </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Pagination -->
+    <div class="row justify-content-between">
+
+        <div class="col-md-auto">
+            <select class="form-select" (change)="setPageSize($event)">
+  <option value="10">10 per page</option>
+  <option value="20">20 per page</option>
+</select>
+        </div>
+        <div class="col-md-auto">
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-end">
+                    <li class="page-item">
+                        <a class="page-link" aria-label="Previous" (click)="setPageRangeSubtract(1)">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" aria-label="Previous" (click)="setPageRangeSubtract(page - 10)">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+
+                    <!-- Use ngClass to conditionally apply a class based on the current page -->
+                    <li class="page-item" *ngFor="let currentPage of pages | slice:startPage-1:endPage let i = index" [class.active]="page === i + startPage">
+                        <a class="page-link" (click)="setCurrentPage(i + startPage)">{{ i + startPage }}</a>
+                    </li>
+
+                    <!-- Add more page numbers as needed -->
+                    <li class="page-item">
+                        <a class="page-link" aria-label="Next" (click)="setPageRangeAdd(page)">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" aria-label="Next" (click)="setPageRangeAdd(pages.length-1)">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                    <!-- Set page range -->
+                </ul>
+                <ul class="pagination justify-content-end">
+                    <li class="page-item">
+                        <p>Showing page {{ page }} of {{ this.pages.length }}</p>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<!-- View Modal -->
+<ng-template #viewModal let-modal>
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="viewModalLabel">Settings Details</h5>
+                <button type="button" class="btn-close" (click)="modal.dismiss('Cross click')" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p>Cash on Hand: {{ setting.cashonhand }}</p>
+                        <p>Discount: {{ setting.discount }}</p>
+                        <p>Cog: {{ setting.cogs }}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p>Vat: {{ setting.vat }}</p>
+                        <p>Account Receivable: {{ setting.accountsreceivable }}</p>
+                        <p>Payable Account: {{ setting.accountspayable }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>

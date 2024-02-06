@@ -1,0 +1,20 @@
+<!-- file.ts -->
+import { Component, ViewEncapsulation } from '@angular/core';
+
+@Component({
+  selector: 'form-plugins',
+  templateUrl: './form-plugins.html',
+  styleUrls: [ './form-plugins.css' ],
+  encapsulation: ViewEncapsulation.None
+})
+
+export class FormPluginsPage {
+}
+
+
+<!-- file.css -->
+@import '~quill/dist/quill.snow.css';
+
+
+<!-- html -->
+<quill-editor></quill-editor>

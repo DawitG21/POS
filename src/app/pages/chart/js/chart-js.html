@@ -1,0 +1,142 @@
+<!-- BEGIN container -->
+<div class="container">
+	<!-- BEGIN row -->
+	<div class="row justify-content-center">
+		<!-- BEGIN col-10 -->
+		<div class="col-xl-10">
+			<!-- BEGIN row -->
+			<div class="row">
+				<!-- BEGIN col-9 -->
+				<div class="col-xl-9">
+					<ul class="breadcrumb">
+						<li class="breadcrumb-item"><a href="#">CHARTS</a></li>
+						<li class="breadcrumb-item active">CHART.JS</li>
+					</ul>
+					
+					<h1 class="page-header">
+						Chart.js <small>page header description goes here...</small>
+					</h1>
+					
+					<hr class="mb-4">
+					
+					<!-- BEGIN #chartJs -->
+					<div id="chartJs">
+						<h4>Basic Example</h4>
+						<p>Chart.js is a simple yet flexible JavaScript charting for designers & developers. Please read the <a href="https://www.chartjs.org/" target="_blank">official documentation</a> for the full list of options.</p>
+					</div>
+					<!-- END #chartJs -->
+					
+					<!-- BEGIN #chartJsLineChart -->
+					<div id="chartJsLineChart" class="mb-5">
+						<card>
+							<card-body>
+								<h6>LINE CHART</h6>
+								<canvas baseChart [type]="'line'" [data]="lineChartData" [options]="lineChartOptions" [legend]="lineChartLegend"></canvas>
+							</card-body>
+							<div class="hljs-container">
+								<pre><code class="xml" [highlight]="code1"></code></pre>
+							</div>
+						</card>
+					</div>
+					<!-- END #chartJsLineChart -->
+					
+					<!-- BEGIN #chartJsBarChart -->
+					<div id="chartJsBarChart" class="mb-5">
+						<card>
+							<card-body>
+								<h6>BAR CHART</h6>
+								<canvas baseChart [type]="'bar'" [data]="barChartData" [options]="barChartOptions" [legend]="barChartLegend"></canvas>
+							</card-body>
+							<div class="hljs-container">
+								<pre><code class="xml" [highlight]="code2"></code></pre>
+							</div>
+						</card>
+					</div>
+					<!-- END #chartJsBarChart -->
+					
+					<!-- BEGIN #chartJsRadarChart -->
+					<div id="chartJsRadarChart" class="mb-5">
+						<card>
+							<card-body>
+								<h6>RADAR CHART</h6>
+								<canvas baseChart [type]="'radar'" [data]="radarChartData" [options]="radarChartOptions" [legend]="radarChartLegend"></canvas>
+							</card-body>
+							<div class="hljs-container">
+								<pre><code class="xml" [highlight]="code3"></code></pre>
+							</div>
+						</card>
+					</div>
+					<!-- END #chartJsRadarChart -->
+					
+					<!-- BEGIN #chartJsPolarAreaChart -->
+					<div id="chartJsPolarAreaChart" class="mb-5">
+						<card>
+							<card-body>
+								<h6>POLAR AREA CHART</h6>
+								<div class="h-300px w-300px mx-auto">
+									<canvas baseChart [type]="'polarArea'" [data]="polarAreaChartData" [options]="polarAreaChartOptions" [legend]="polarAreaChartLegend"></canvas>
+								</div>
+							</card-body>
+							<div class="hljs-container">
+								<pre><code class="xml" [highlight]="code4"></code></pre>
+							</div>
+						</card>
+					</div>
+					<!-- END #chartJsPolarAreaChart -->
+					
+					<!-- BEGIN #chartJsPieChart -->
+					<div id="chartJsPieChart" class="mb-5">
+						<card>
+							<card-body>
+								<h6>PIE CHART</h6>
+								<div class="h-300px w-300px mx-auto">
+									<canvas baseChart [type]="'pie'" [data]="pieChartData" [options]="pieChartOptions" [legend]="pieChartLegend"></canvas>
+								</div>
+							</card-body>
+							<div class="hljs-container">
+								<pre><code class="xml" [highlight]="code5"></code></pre>
+							</div>
+						</card>
+					</div>
+					<!-- END #chartJsPieChart -->
+					
+					<!-- BEGIN #chartJsDoughnutChart -->
+					<div id="chartJsDoughnutChart" class="mb-5">
+						<card>
+							<card-body>
+								<h6>DOUGHNUT CHART</h6>
+								<div class="h-300px w-300px mx-auto">
+									<canvas baseChart [type]="'doughnut'" [data]="doughnutChartData" [options]="doughnutChartOptions" [legend]="doughnutChartLegend"></canvas>
+								</div>
+							</card-body>
+							<div class="hljs-container">
+								<pre><code class="xml" [highlight]="code6"></code></pre>
+							</div>
+						</card>
+					</div>
+					<!-- END #chartJsDoughnutChart -->
+				</div>
+				<!-- END col-9-->
+				<!-- BEGIN col-3 -->
+				<div class="col-xl-3">
+					<!-- BEGIN #sidebar-bootstrap -->
+					<nav-scroll>
+						<a class="nav-link" href="#chartJs" data-toggle="scroll-to">Chart.js</a>
+						<a class="nav-link" href="#chartJsLineChart" data-toggle="scroll-to"> - line chart</a>
+						<a class="nav-link" href="#chartJsBarChart" data-toggle="scroll-to"> - bar chart</a>
+						<a class="nav-link" href="#chartJsRadarChart" data-toggle="scroll-to"> - radar chart</a>
+						<a class="nav-link" href="#chartJsPolarAreaChart" data-toggle="scroll-to"> - polar area chart</a>
+						<a class="nav-link" href="#chartJsPieChart" data-toggle="scroll-to"> - pie chart</a>
+						<a class="nav-link" href="#chartJsDoughnutChart" data-toggle="scroll-to"> - doughnut chart</a>
+					</nav-scroll>
+					<!-- END #sidebar-bootstrap -->
+				</div>
+				<!-- END col-3 -->
+			</div>
+			<!-- END row -->
+		</div>
+		<!-- END col-10 -->
+	</div>
+	<!-- END row -->
+</div>
+<!-- END container -->

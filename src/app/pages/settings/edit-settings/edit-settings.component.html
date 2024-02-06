@@ -1,0 +1,84 @@
+<div class="container">
+    <div class="progress" *ngIf="busy">
+        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="col-sm-1">
+            <button type="button" class="btn btn-outline-light" (click)="goBack()"><h4><i class="bi bi-arrow-left"></i></h4></button>
+        </div>
+        <div class="col-sm-8">
+            <h1 class="center">Edit Setting</h1><br>
+        </div>
+        <div class="col-sm-2">
+            <button type="submit" class="btn btn-outline-primary w-100 float-right" (click)="save()">
+          Save
+        </button>
+        </div>
+    </div>
+    <form #f="ngForm" [formGroup]="form" id="storeForm">
+        <div class="row">
+            <div class="col-md-6">
+                <!-- Name Input -->
+                <div class="mb-3">
+                    <label for="cashonhand">cashonhand</label>
+                    <input type="text" class="form-control" id="cashonhand" name="cashonhand" formControlName="cashonhand" />
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <!-- Short Name Input -->
+                <div class="mb-3">
+                    <label for="cogs">cogs</label>
+                    <input type="text" class="form-control" id="cogs" name="cogs" formControlName="cogs" />
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <!-- Base Unit Input in a new row -->
+                <div class="mb-3">
+                    <label for="discount">discount</label>
+                    <input type="text" class="form-control" id="discount" name="discount" formControlName="discount" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <!-- Base Unit Input in a new row -->
+                <div class="mb-3">
+                    <label for="vat">vat</label>
+                    <input type="text" class="form-control" id="vat" name="vat" formControlName="vat" />
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <!-- Base Unit Input in a new row -->
+                <div class="mb-3">
+                    <label for="accountsreceivable">accountsreceivable</label>
+                    <input type="text" class="form-control" id="accountsreceivable" name="accountsreceivable" formControlName="accountsreceivable" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <!-- Base Unit Input in a new row -->
+                <div class="mb-3">
+                    <label for="accountspayable">accountspayable</label>
+                    <input type="text" class="form-control" id="accountspayable" name="accountspayable" formControlName="accountspayable" />
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <!-- Base Unit Input in a new row -->
+                <div class="mb-3">
+                    <label for="salesrevenue">salesrevenue</label>
+                    <input type="text" class="form-control" id="salesrevenue" name="salesrevenue" formControlName="salesrevenue" />
+                </div>
+            </div>
+        </div>
+    </form>
+
+
+</div>

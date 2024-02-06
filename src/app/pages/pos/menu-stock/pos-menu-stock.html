@@ -1,0 +1,81 @@
+<!-- BEGIN pos -->
+<card class="pos pos-vertical" id="pos">
+	<!-- BEGIN pos-container -->
+	<card-body class="pos-container">
+		<!-- BEGIN pos-header -->
+		<div class="pos-header">
+			<div class="logo">
+				<a routerLink="/pos/counter-checkout">
+					<div class="logo-img"><i class="bi bi-x-diamond" style="font-size: 1.5rem;"></i></div>
+					<div class="logo-text">Pine & Dine</div>
+				</a>
+			</div>
+			<div class="time" id="time">{{ getTime() }}</div>
+			<div class="nav">
+				<div class="nav-item">
+					<a routerLink="/pos/kitchen-order" class="nav-link">
+						<i class="bi bi-bootstrap-reboot nav-icon"></i>
+					</a>
+				</div>
+				<div class="nav-item">
+					<a routerLink="/pos/table-booking" class="nav-link">
+						<i class="bi bi-calendar-date nav-icon"></i>
+					</a>
+				</div>
+				<div class="nav-item">
+					<a routerLink="/pos/menu-stock" class="nav-link">
+						<i class="bi bi-pie-chart nav-icon"></i>
+					</a>
+				</div>
+			</div>
+		</div>
+		<!-- END pos-header -->
+		
+		<!-- BEGIN pos-content -->
+		<div class="pos-content overflow-hidden">
+			<ng-scrollbar>
+				<div class="pos-content-container h-100 p-3">
+					<div class="row gx-3">
+						<ng-container *ngIf="menu">
+							<div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 pb-3" *ngFor="let menu of menu; let i = index">
+								<card class="h-100">
+									<card-body class="h-100 p-1">
+										<div class="pos-product">
+											<div class="img" [ngStyle]="{ backgroundImage: 'url('+ menu.image +')' }"></div>
+											<div class="info">
+												<div class="title">{{ menu.title }}</div>
+												<div class="desc">{{ menu.description }}</div>
+												<div class="d-flex align-items-center mb-3">
+													<div class="w-100px">Stock:</div>
+													<div class="flex-1">
+														<input type="text" class="form-control" [value]="menu.stock" />
+													</div>
+												</div>
+												<div class="d-flex align-items-center mb-3">
+													<div class="w-100px">Availability:</div>
+													<div class="flex-1">
+														<div class="form-check form-switch">
+															<input class="form-check-input" type="checkbox" name="qty" [id]="'product' + i" [checked]="menu.available" value="1" />
+															<label class="form-check-label" [for]="'product' + i"></label>
+														</div>
+													</div>
+												</div>
+												<div>
+													<a href="javascript:;" class="btn btn-theme d-block mb-2"><i class="fa fa-check fa-fw"></i> Update</a>
+													<a href="javascript:;" class="btn btn-default d-block"><i class="fa fa-times fa-fw"></i> Cancel</a>
+												</div>
+											</div>
+										</div>
+									</card-body>
+								</card>
+							</div>
+						</ng-container>
+					</div>
+				</div>
+			</ng-scrollbar>
+		</div>
+		<!-- END pos-content -->
+	</card-body>
+	<!-- END pos-container -->
+</card>
+<!-- END pos -->

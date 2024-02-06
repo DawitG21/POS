@@ -1,0 +1,17 @@
+body ngb-timepicker {
+	& .btn-link {
+		--#{$prefix}btn-color: rgba(var(--#{$prefix}inverse-rgb), .5);
+		--#{$prefix}btn-hover-color: rgba(var(--#{$prefix}inverse-rgb), 1);
+		--#{$prefix}btn-active-color: rgba(var(--#{$prefix}inverse-rgb), 1);
+	}
+	& .btn-outline-primary {
+		--#{$prefix}btn-color: var(--#{$prefix}theme);
+    --#{$prefix}btn-border-color: var(--#{$prefix}theme);
+    --#{$prefix}btn-hover-color: var(--#{$prefix}theme-color);
+    --#{$prefix}btn-hover-bg: var(--#{$prefix}theme);
+    --#{$prefix}btn-hover-border-color: var(--#{$prefix}theme);
+    --#{$prefix}btn-active-color: var(--#{$prefix}theme-color);
+    --#{$prefix}btn-active-bg: var(--#{$prefix}theme);
+    --#{$prefix}btn-active-border-color: var(--#{$prefix}theme);
+	}
+}

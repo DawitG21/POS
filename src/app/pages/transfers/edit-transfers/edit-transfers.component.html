@@ -1,0 +1,88 @@
+<div class="container">
+  <div class="progress" *ngIf="busy">
+      <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75"
+          aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+  </div>
+  <br />
+
+  <div class="row">
+      <div class="col-sm-1">
+          <button type="button" class="btn btn-outline-light" (click)="goBack()"><h4><i class="bi bi-arrow-left"></i></h4></button>
+      </div>
+      <div class="col-sm-8">
+          <h1 class="center">Edit Transfer</h1>
+      </div>
+      <div class="col-sm-2">
+          <button type="submit" class="btn btn-outline-primary w-100 float-right" (click)="save()">
+              Save
+          </button>
+      </div>
+  </div>
+</div><br>
+<div class="container">
+  <div class="form-group mb-3">
+      <form #f="ngForm" [formGroup]="form" id="transferForm">
+
+        <div class="row">
+          <div class="col-sm-6">
+            <label class="form-label" for="fromstore">From Store</label>
+            <select class="form-select" formControlName="fromstore" id="fromstore" (change)="onFromStoreChange($event)">
+              <option value="" selected disabled> Choose Store </option>
+              <option *ngFor="let fromstore of stores" [value]="fromstore.id" [disabled]="fromstore.id === selectedToStore">{{ fromstore.name }}</option>
+            </select>
+          </div>
+          <div class="col-sm-6">
+            <label class="form-label" for="tostore">To Store</label>
+            <select class="form-select" formControlName="tostore" id="tostore" (change)="onToStoreChange($event)"> 
+              <option value="" selected disabled> Choose Store </option>
+              <option *ngFor="let tostore of stores" [value]="tostore.id" [disabled]="tostore.id === selectedFromStore">{{tostore.name}}</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Product Section -->
+        <div class="row" formArrayName="products">
+          <div *ngFor="let productGroup of products.controls; let i = index" [formGroupName]="i" class="col-md-12 mb-3">
+              <br>
+              <div class="row">
+
+                  <div class="col-md-3">
+                    <label class="form-label" for="productname">Product</label>
+                    <input type="text" class="form-control" id="productname" formControlName="productname" readonly/>
+                  </div>
+
+                  <div class="col-md-3">
+                      <label class="form-label" for="quantity">Quantity</label>
+                      <input type="number" class="form-control" id="quantity" placeholder="Enter quantity" formControlName="quantity" />
+                      <div *ngIf="!productGroup.get('quantity')?.valid && productGroup.get('quantity')?.touched" class="help-block">
+                          Quantity is required
+                      </div>
+                  </div>
+
+                  <div class="col-md-2">
+                    <label class="form-label" for="price">Price</label>
+                    <input type="number" class="form-control" id="price" placeholder="Enter price" formControlName="price" readonly />
+                    <div *ngIf="!productGroup.get('price')?.valid && productGroup.get('price')?.touched" class="help-block">
+                        Price is required
+                    </div>
+                </div><div class="col-md-2">
+                  <label class="form-label" for="salesPrice">Sales Price</label>
+                  <input type="number" class="form-control" id="salesPrice" placeholder="Enter salesPrice" formControlName="salesPrice" readonly />
+                  <div *ngIf="!productGroup.get('salesPrice')?.valid && productGroup.get('salesPrice')?.touched" class="help-block">
+                      Sales Price is required
+                  </div>
+              </div>
+                  <!-- <div class="col-md-2 d-flex align-items-center justify-content-center">
+                      <button type="button" class="btn btn-danger" (click)="removeProduct(i)">Remove</button>
+                  </div> -->
+                  
+                  <label class="form-label" for="productId"></label>
+                  <input type="hidden" class="form-control" id="productId" formControlName="productId" readonly/>
+              </div>
+          </div>
+
+      </div>
+        <br>
+      </form>
+  </div>
+</div>

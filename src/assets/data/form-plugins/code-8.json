@@ -1,0 +1,40 @@
+<!-- file.ts -->
+import { Component, ViewEncapsulation } from '@angular/core';
+
+@Component({
+  selector: 'form-plugins',
+  templateUrl: './form-plugins.html',
+  styleUrls: [ './form-plugins.css' ],
+  encapsulation: ViewEncapsulation.None
+})
+
+export class FormPluginsPage {
+  selectpickerSingleValue: number = 0;
+  selectpickerSingleTags = [{ id: 1, name: 'Volvo' }, { id: 2, name: 'Saab' }, { id: 3, name: 'Opel' }, { id: 4, name: 'Audi' }];
+  
+  selectpickerMultipleValue: any[] = [];
+  selectpickerMultipleTags = ['Uber', 'Microsoft', 'Flexigen'];
+  
+  addTagFn(name: any) {
+    return { name: name, tag: true };
+  }
+}
+
+
+<!-- file.css -->
+@import '~@ng-select/ng-select/themes/default.theme.css';
+
+
+<!-- single -->
+<ng-select [(ngModel)]="selectpickerSingleValue">
+  <ng-option *ngFor="let selectpickerSingleTag of selectpickerSingleTags" [value]="selectpickerSingleTag.id">{{selectpickerSingleTag.name}}</ng-option>
+</ng-select>
+
+<!-- multiple -->
+<ng-select [items]="selectpickerMultipleTags"
+  [addTag]="addTagFn"
+  [hideSelected]="true"
+  [multiple]="true"
+  bindLabel="name"
+  [(ngModel)]="selectpickerMultipleValue">
+</ng-select>

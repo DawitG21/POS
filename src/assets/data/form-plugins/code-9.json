@@ -1,0 +1,26 @@
+<!-- file.ts -->
+import { Component } from '@angular/core';
+import { ColorEvent } from 'ngx-color';
+
+@Component({
+  selector: 'form-plugins',
+  templateUrl: './form-plugins.html'
+})
+
+export class FormPluginsPage {
+  colorpickerValue: string = '#333333';
+  
+  changeComplete($event: ColorEvent) {
+    this.colorpickerValue = $event.color.hex;
+  }
+}
+
+
+<!-- html -->
+<div class="input-group">
+  <input class="form-control" placeholder="with input group addon" [value]="colorpickerValue" />
+  <div class="dropdown-menu dropdown-menu-end">
+    <color-sketch [color]="colorpickerValue" (onChangeComplete)="changeComplete($event)"></color-sketch>
+  </div>
+  <button class="btn btn-outline-default bi bi-palette-fill" data-bs-toggle="dropdown" data-bs-auto-close="outside" type="button"></button>
+</div>

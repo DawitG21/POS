@@ -1,0 +1,111 @@
+<!-- BEGIN pos -->
+
+<card class="pos pos-vertical" id="pos">
+    <div class="progress" *ngIf="busy">
+        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+    </div>
+    <br>
+    <!-- BEGIN pos-container -->
+    <card-body class="pos-container">
+        <!-- BEGIN pos-header -->
+        <div class="pos-header">
+            <div class="logo">
+                <a routerLink="/pos/counter-checkout">
+                    <div class="logo-img"><i class="bi bi-x-diamond" style="font-size: 1.5rem;"></i></div>
+                    <div class="logo-text">Pine & Dine</div>
+                </a>
+            </div>
+            <div class="time" id="time">{{ getTime() }}</div>
+            <div class="nav">
+                <div class="nav-item" *ngIf="claims && claims.create_products">
+                    <a routerLink="/product/create" class="nav-link">
+                        <i class="bi bi-plus-circle-fill nav-icon"></i>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a routerLink="/pos/kitchen-order" class="nav-link">
+                        <i class="bi bi-bootstrap-reboot nav-icon"></i>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a routerLink="/pos/table-booking" class="nav-link">
+                        <i class="bi bi-calendar-date nav-icon"></i>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a routerLink="/pos/menu-stock" class="nav-link">
+                        <i class="bi bi-pie-chart nav-icon"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- END pos-header -->
+
+        <!-- BEGIN pos-content -->
+        <div class="pos-content overflow-hidden">
+            <div class="container">
+                <div class="form-group mb-3">
+                    <form #f="ngForm" [formGroup]="form" id="productForm">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label for="companyId" class="form-label">Company</label>
+                                <select class="form-select" id="companyId" #companyId name="companyId" (change)="onCompanyChange($event)" formControlName="companyId" placeholder="Company" required>
+                                    <option value="" disabled selected>Choose Company</option>
+                                    <option *ngFor="let company of companies" [value]="company.id">
+                                        {{ company.name }}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="roleId" class="form-label">Store</label>
+                                <select class="form-select" id="storeId" name="storeId" (change)="onStoreChange($event)" formControlName="storeId" placeholder="Store" required>
+                                    <option value="" disabled selected>Choose Store</option>
+                                    <option *ngFor="let store of filteredStores" [value]="store.id">
+                                        {{ store.name }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <ng-scrollbar>
+                <div class="pos-content-container h-100 p-3">
+                    <div class="row gx-3">
+                        <ng-container *ngFor="let stock of stocks">
+                            <ng-container *ngFor="let product of stock.products; let j = index">
+
+                                <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 pb-3">
+                                    <card class="h-100">
+                                        <card-body class="h-100 p-1">
+                                            <div class="pos-product">
+                                                <img class="img-responsive" [src]="imgUrl + '/' + product.productId.avatar" alt="Avatar" style="max-width: 287px; max-height: 300px;" />
+                                                <div class="info">
+                                                    <div class="title">{{ product.productId.name }}</div>
+                                                    <div class="desc">{{ product.productId.description }}</div>
+                                                    <div class="d-flex align-items-center mb-3">
+                                                        <div class="w-100px">Stock:</div>
+                                                        <div class="flex-1">
+                                                            <input type="text" class="form-control" [value]="product.quantity" readonly/>
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <a href="javascript:;" class="btn btn-theme d-block mb-2" *ngIf="claims && claims.create_products" (click)="editProduct(product.productId.id, product.quantity)"><i class="fa fa-check fa-fw" ></i> Update</a>
+                                                        <a href="javascript:;" class="btn btn-default d-block" *ngIf="claims && claims.delete_products" (click)="delete(product.productId.id)"><i class="fa fa-times fa-fw"></i> Delete</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </card-body>
+                                    </card>
+                                </div>
+                            </ng-container>
+                        </ng-container>
+                    </div>
+                </div>
+            </ng-scrollbar>
+        </div>
+        <!-- END pos-content -->
+    </card-body>
+    <!-- END pos-container -->
+</card>
+<!-- END pos -->

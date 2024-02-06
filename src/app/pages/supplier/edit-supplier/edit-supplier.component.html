@@ -1,0 +1,60 @@
+<div class="container">
+    <div class="progress" *ngIf="busy">
+        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+    </div>
+    <br/>
+
+    <div class="row">
+        <div class="col-sm-1">
+            <button type="button" class="btn btn-outline-light" (click)="goBack()"><h4><i class="bi bi-arrow-left"></i></h4></button>
+        </div>
+        <div class="col-sm-8">
+            <h1 class="center">Edit Supplier</h1><br>
+        </div>
+        <div class="col-sm-2">
+            <button type="submit" class="btn btn-outline-primary w-100 float-right" (click)="save()">
+                Save
+            </button>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="form-group mb-3">
+        <form #f="ngForm" [formGroup]="form" id="supplierForm">
+            <div class="row">
+                <div class="col-sm-6">
+                    <label class="form-label w-50" for="name">Supplier Name</label>
+                    <input type="name" class="form-control" id="name" placeholder="Supplier Name" value="" formControlName="name" />
+                </div>
+                <div class="col-sm-6">
+                    <label class="form-label" for="phoneNumber">Phone Number</label>
+                    <input type="number" class="form-control" id="phoneNumber" placeholder="+251....." value="" formControlName="phoneNumber" />
+                </div>
+            </div>
+            <br />
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <label class="form-label" for="country">Country</label>
+                    <select class="form-select" formControlName="country">
+                        <option value="" selected disabled>Choose Country</option>
+                        <option value="Ethiopia">Ethiopia</option>
+                    </select>
+                </div>
+                <div class="col-sm-6">
+                    <label class="form-label" for="cityInput">City</label>
+                    <input type="name" class="form-control" id="cityInput" placeholder="City" value="" formControlName="city" />
+                </div>
+            </div>
+            <br>
+            <br />
+            <div class="col-sm-6">
+                <div class="form-check form-switch">
+                    <input type="checkbox" class="form-check-input" id="statusSwitch" formControlName="status" />
+                    <label class="form-check-label" for="statusSwitch">Status</label>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>

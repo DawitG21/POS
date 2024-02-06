@@ -1,0 +1,22 @@
+<!-- file.ts -->
+export class UiModalNotificationsPage {
+  showToast(event: MouseEvent, toastId: any) {
+    event.preventDefault();
+    
+    const elm = document.getElementById(toastId);
+    const toast = new bootstrap.Toast(elm);
+    toast.show();
+  }
+}
+
+
+<!-- html -->
+<a href="#" class="btn btn-outline-theme" (click)="showToast($event, 'toast-1')">
+  Show toast 1
+</a>
+
+<div class="toasts-container">
+  <div class="toast fade hide" data-autohide="false" id="toast-1">
+    ...
+  </div>
+</div>

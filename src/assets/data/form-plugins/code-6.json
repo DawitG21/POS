@@ -1,0 +1,19 @@
+<!-- file.ts -->
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'form-plugins',
+  templateUrl: './form-plugins.html'
+})
+
+export class FormPluginsPage {
+  maskedInputDate: any;
+  maskedInputNumber: any;
+}
+
+
+<!-- date -->
+<input type="text" class="form-control" mask="00/00/0000" placeholder="dd/mm/yyyy" [(ngModel)]="maskedInputDate">
+
+<!-- number -->
+<input type="text" class="form-control" mask="(000) 000-0000" placeholder="(123) 456-7890" [(ngModel)]="maskedInputNumber">

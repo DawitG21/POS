@@ -1,0 +1,11 @@
+<ngx-masonry class="row">
+  <div ngxMasonryItem class="col-sm-6 col-lg-4 mb-4">
+    <div class="card">...</div>
+  </div>
+  <div ngxMasonryItem class="col-sm-6 col-lg-4 mb-4">
+    <div class="card">...</div>
+  </div>
+  <div ngxMasonryItem class="col-sm-6 col-lg-4 mb-4">
+    <div class="card">...</div>
+  </div>
+</ngx-masonry>

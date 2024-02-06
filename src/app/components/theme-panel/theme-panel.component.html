@@ -1,0 +1,54 @@
+<div class="app-theme-panel-container">
+	<a href="#"  class="app-theme-toggle-btn" (click)="handleToggleThemePanel($event)"><i class="bi bi-sliders"></i></a>
+	<div class="app-theme-panel-content">
+		<div class="small fw-bold text-inverse mb-1">Display Mode</div>
+		<card class="mb-3">
+			<card-body class="p-2">
+				<div class="row gx-2">
+					<div class="col-6" *ngFor="let mode of modeList">
+						<a href="#" class="app-theme-mode-link"
+							(click)="handleToggleMode($event, mode.value)" 
+							[ngClass]="{'active': appSettings.appMode === mode.value || (!appSettings.appMode && mode.value === 'dark')}">
+							<div class="img"><img [src]="mode.img" class="object-fit-cover" height="76" width="76" [attr.alt]="mode.name + ' Mode'"></div>
+							<div class="text">{{ mode.name }}</div>
+						</a>
+					</div>
+				</div>
+			</card-body>
+		</card>
+		
+		<div class="small fw-bold text-inverse mb-1">Theme Color</div>
+		<card class="mb-3">
+			<card-body class="p-2">
+				<div class="app-theme-list">
+					<div class="app-theme-list-item" [ngClass]="{'active': appSettings.appTheme === theme.themeClass || (!appSettings.appTheme && theme.name === 'Default')}" *ngFor="let theme of themeList">
+						<a href="#" class="app-theme-list-link" 
+							(click)="handleToggleTheme($event, theme.themeClass)" 
+							[ngClass]="theme.bgClass"
+							[attr.data-bs-title]="theme.name" 
+							data-bs-toggle="tooltip" 
+							data-bs-trigger="hover" 
+							data-bs-container="body">&nbsp;</a>
+					</div>
+				</div>
+			</card-body>
+		</card>
+		
+		<div class="small fw-bold text-inverse mb-1">Theme Cover</div>
+		<card>
+			<card-body class="p-2">
+				<div class="app-theme-cover">
+					<div class="app-theme-cover-item" [ngClass]="{'active': appSettings.appCover === cover.coverClass || (!appSettings.appCover && cover.name === 'Default')}" *ngFor="let cover of coverList">
+						<a href="#" class="app-theme-cover-link" 
+							(click)="handleToggleCover($event, cover.coverClass)" 
+							[ngStyle]="{ 'background-image': 'url('+ cover.coverThumbImage + ')'}"
+							[attr.data-bs-title]="cover.name"
+							data-bs-toggle="tooltip" 
+							data-bs-trigger="hover" 
+							data-bs-container="body">&nbsp;</a>
+					</div>
+				</div>
+			</card-body>
+		</card>
+	</div>
+</div>

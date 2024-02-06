@@ -1,0 +1,73 @@
+<div class="container">
+    <div class="progress" *ngIf="busy">
+        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75"
+            aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+    </div>
+    <br/>
+    <div class="row">
+      <div class="col-sm-1">
+          <button type="button" class="btn btn-outline-light" (click)="goBack()"><h4><i class="bi bi-arrow-left"></i></h4></button>
+      </div>
+      <div class="col-sm-8">
+          <h1 class="center">Create Tax</h1><br>
+      </div>
+      <div class="col-sm-2">
+        <button
+          type="submit"
+          class="btn btn-outline-primary w-100 float-right"
+          (click)="onSubmit()"
+        >
+          Save
+        </button>
+      </div>
+      </div>
+    <form #taxForm="ngForm" [formGroup]="form" id="taxForm" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <div class="col-md-6">
+          <!-- Name Input -->
+          <div class="mb-3">
+            <label for="name">Tax Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="name"
+              name="name"
+              formControlName="name"
+              required
+            />
+          </div>
+        </div>
+    
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label for="rate">Rate</label>
+            <input
+              type="number"
+              class="form-control"
+              id="rate"
+              name="rate"
+              formControlName="rate"
+              required
+            />
+          </div>
+        </div>
+      </div>
+    
+      <div class="row">
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label for="description">Description</label>
+            <input
+              type="text"
+              class="form-control"
+              id="description"
+              name="description"
+              formControlName="description"
+              required
+            />
+          </div>
+        </div>
+      </div>
+    </form>  
+ </div>
+

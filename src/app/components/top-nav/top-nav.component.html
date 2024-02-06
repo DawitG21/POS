@@ -1,0 +1,26 @@
+<div class="menu">
+	<ng-template ngFor let-menu [ngForOf]="menus">
+		<div *ngIf="!menu.is_divider && !menu.is_header" class="menu-item" [ngClass]="{ 'active': (menu.path && isActive(menu.path)) || (menu.children && isChildActive(menu.children)), 'has-sub': menu.children }">
+			<a [routerLink]="!menu.children ? menu.path : null" class="menu-link">
+				<span class="menu-icon"><i [ngClass]="menu.icon"></i></span>
+				<span class="menu-text">{{ menu.text }}</span>
+				<span class="menu-caret" *ngIf="menu.children"><b class="caret"></b></span>
+			</a>
+			<div class="menu-submenu" *ngIf="menu.children">
+				<ng-template ngFor let-childmenu [ngForOf]="menu.children">
+					<div class="menu-item" [ngClass]="{ 'active': isActive(childmenu.path) }">
+						<a [routerLink]="childmenu.path" class="menu-link">
+							<span class="menu-text">{{ childmenu.text }}</span>
+						</a>
+					</div>
+				</ng-template>
+			</div>
+		</div>
+	</ng-template>
+	<div class="menu-item menu-control menu-control-start">
+		<a href="javascript:;" class="menu-link" (click)="handleTopNavControlAction($event, 'prev')"><i class="bi bi-caret-left"></i></a>
+	</div>
+	<div class="menu-item menu-control menu-control-end">
+		<a href="javascript:;" class="menu-link" (click)="handleTopNavControlAction($event, 'next')"><i class="bi bi-caret-right"></i></a>
+	</div>
+</div>

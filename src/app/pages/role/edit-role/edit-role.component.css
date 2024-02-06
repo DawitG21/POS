@@ -1,0 +1,13 @@
+.multi-column-container {
+    column-count: 2;
+    /* Set the number of columns */
+    column-gap: 20px;
+    /* Adjust the gap between columns */
+}
+
+.permission-group {
+    break-inside: avoid-column;
+    /* Avoid breaking a permission group across columns */
+    margin-bottom: 20px;
+    /* Adjust the space between permission groups */
+}

@@ -1,0 +1,126 @@
+<div>
+    <div class="progress" *ngIf="busy">
+        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75"
+            aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+    </div>
+    <br />
+
+    <div class="row">
+        <div class="col-sm-9">
+            <h2 class="center">Store Reports</h2><br>
+        </div>
+        <div class="col-sm-2">
+            <button type="submit" class="btn btn-outline-primary w-100 float-right" (click)="generateReport()">
+                Generate
+            </button>
+        </div>
+    </div>
+</div>
+<div>
+    <div class="form-group mb-3">
+        <form #f="ngForm" [formGroup]="form" id="reportForm">
+            <div class="row">
+                <div class="col-sm-4" *ngIf="this.storedUserType == 'POS Owner'">
+                    <label for="companyId" class="form-label">Company</label>
+                    <select class="form-select" id="companyId" #companyId name="companyId" formControlName="companyId"
+                        placeholder="Company" required>
+                        <option *ngFor="let company of companies" [value]="company.id">
+                            {{ company.name }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <br>
+        </form>
+    </div>
+</div>
+
+<div class="row mb-3">
+    <button type="submit" class="btn btn-outline-primary col-sm-1 float-right" (click)="exportExcel()">
+        <i class="bi bi-file-earmark-spreadsheet-fill"></i> Excel
+    </button>
+    <button type="submit" class="btn btn-outline-primary col-sm-1 ml-3 float-right" printSectionId="table-data" ngxPrint
+        [useExistingCss]="true">
+        <i class="bi bi-file-pdf"></i> PDF
+    </button>
+    <div class="col-md-auto float-right">
+
+    </div>
+</div>
+<div id="table-data">
+    <h4>Stores Report</h4>
+    <table class="table  table-hover mt-3">
+        <thead class="table-light">
+            <tr>
+                <th>Store Name</th>
+                <th>Phone</th>
+                <th>Address</th>
+                <th>Status</th>
+                <th>Created On</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of stores!">
+                <td>{{ item.name }}</td>
+                <td>{{ item.phone.code }} {{item.phone.number}}</td>
+                <td>{{ item.address.city }}, {{item.address.country}}</td>
+                <td *ngIf="item.status">Active</td>
+                <td *ngIf="!item.status">Inactive</td>
+                <td>{{ item.createdOn | date : "short" }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<!-- Pagination -->
+<div class="row justify-content-between">
+
+    <div class="col-md-auto">
+        <select class="form-select" (change)="setPageSize($event)">
+            <option value="10">10 per page</option>
+            <option value="50">50 per page</option>
+            <option value="100">100 per page</option>
+            <option value="250">250 per page</option>
+            <option value="500">500 per page</option>
+        </select>
+    </div>
+    <div class="col-md-auto">
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-end">
+                <li class="page-item">
+                    <a class="page-link" aria-label="Previous" (click)="setPageRangeSubtract(1)">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" aria-label="Previous" (click)="setPageRangeSubtract(page - 10)">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+
+                <!-- Use ngClass to conditionally apply a class based on the current page -->
+                <li class="page-item" *ngFor="let currentPage of pages | slice:startPage-1:endPage let i = index"
+                    [class.active]="page === i + startPage">
+                    <a class="page-link" (click)="setCurrentPage(i + startPage)">{{ i + startPage }}</a>
+                </li>
+
+                <!-- Add more page numbers as needed -->
+                <li class="page-item">
+                    <a class="page-link" aria-label="Next" (click)="setPageRangeAdd(page)">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" aria-label="Next" (click)="setPageRangeAdd(pages.length-1)">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+                <!-- Set page range -->
+            </ul>
+            <ul class="pagination justify-content-end">
+                <li class="page-item">
+                    <p>Showing page {{ page }} of {{ this.pages.length }}</p>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>

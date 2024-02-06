@@ -1,0 +1,35 @@
+<!-- file.ts -->
+import { Component } from '@angular/core';
+import { NgbDateStruct, 
+         NgbCalendar, 
+         NgbDate } from '@ng-bootstrap/ng-bootstrap';
+
+@Component({
+  selector: 'form-plugins',
+  templateUrl: './form-plugins.html'
+})
+
+export class FormPluginsPage {
+  datepickerDefaultValue: String = '';
+  datepickerComponentValue: String = '';
+  datepickerInlineDate: { year: number; month: number };
+  datepickerInlineValue: NgbDateStruct;
+  
+  constructor(private calendar: NgbCalendar) {
+    this.datepickerInlineValue = this.calendar.getToday();
+    this.datepickerInlineDate = this.calendar.getToday();
+  }
+}
+
+
+<!-- default -->
+<input class="form-control" placeholder="yyyy-mm-dd" name="datepickerDefaultValue" (click)="d.toggle()" [(ngModel)]="datepickerDefaultValue" ngbDatepicker #d="ngbDatepicker" autocomplete="off" />
+
+<!-- component -->
+<div class="input-group">
+  <input class="form-control" placeholder="with input group addon" name="datepickerComponentValue" [(ngModel)]="datepickerComponentValue" ngbDatepicker #d2="ngbDatepicker" />
+  <button class="btn btn-outline-default bi bi-calendar3" (click)="d2.toggle()" type="button"></button>
+</div>
+
+<!-- inline -->
+<ngb-datepicker class="w-100" #dp [(ngModel)]="datepickerInlineValue" (navigate)="datepickerInlineDate = $event.next"></ngb-datepicker>

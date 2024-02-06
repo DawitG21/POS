@@ -1,0 +1,30 @@
+<!-- BEGIN #app -->
+<div id="app" class="app" [ngClass]="{
+	'd-none': !appLoaded,
+	'app-without-header': appSettings.appHeaderNone,
+	'app-without-sidebar': appSettings.appSidebarNone,
+	'app-with-top-nav': appSettings.appTopNav,
+	'app-boxed-layout': appSettings.appBoxedLayout,
+	'app-sidebar-collapsed': appSettings.appSidebarCollapsed,
+	'app-content-full-height': appSettings.appContentFullHeight,
+	'app-content-full-width': appSettings.appContentFullWidth,
+	'app-footer-fixed': appSettings.appFooter
+}">
+
+  <header *ngIf="!appSettings.appHeaderNone"></header>
+  
+  <top-nav *ngIf="appSettings.appTopNav"></top-nav>
+
+  <sidebar *ngIf="!appSettings.appSidebarNone && isLoggedIn"></sidebar>
+  
+  <sidebar-mobile-backdrop *ngIf="!appSettings.appSidebarNone"></sidebar-mobile-backdrop>
+
+  <div id="content" class="app-content" [class]="appSettings.appContentClass">
+    <router-outlet></router-outlet>
+  </div>
+  
+  <footer *ngIf="appSettings.appFooter"></footer>
+  
+  <theme-panel></theme-panel>
+</div>
+<!-- END #app -->

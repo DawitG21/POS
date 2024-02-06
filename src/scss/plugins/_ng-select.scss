@@ -1,0 +1,165 @@
+body .ng-select {
+	display: block;
+  width: 100%;
+  padding: $input-padding-y - rem(2px) $input-padding-x $input-padding-y - rem(5px) !important;
+  font-family: $input-font-family;
+  @include font-size($input-font-size);
+  font-weight: $input-font-weight;
+  line-height: $input-line-height;
+  color: $input-color;
+  background-color: $input-bg;
+  background-clip: padding-box;
+  border: $input-border-width solid $input-border-color !important;
+  
+  @include border-radius($input-border-radius, 0);
+  @include box-shadow($input-box-shadow);
+  @include transition($input-transition);
+  
+	& .ng-select-container {
+		background-color: $input-bg !important;
+		border: none !important;
+		color: $input-color;
+		
+		& .ng-arrow-wrapper {
+			padding: 0;
+			width: rem(16px);
+		}
+		& .ng-clear-wrapper {
+			& .ng-clear {
+				display: block;
+				font-size: rem(22px);
+				margin-top: rem(-4px);
+				color: rgba(var(--#{$prefix}inverse-rgb), .5);
+			}
+			&:hover {
+				& .ng-clear {
+					color: rgba(var(--#{$prefix}inverse-rgb), 1);
+				}
+			}
+		}
+	}
+	&.ng-select-single {
+  	padding: $input-padding-y - rem(2px) $input-padding-x !important;
+  	
+		& .ng-select-container {
+			font-family: $font-family-base !important;
+			line-height: rem(16px);
+			height: rem(25px);
+			min-height: rem(25px);
+			box-shadow: none !important;
+			
+			& .ng-value-container {
+				padding: 0;
+				
+				& .ng-input {
+					@if $enable-rtl {
+						padding-left: rem(20px);
+						padding-right: 0;
+					} @else {
+						padding-right: rem(20px);
+						padding-left: 0;
+					}
+				}
+				& input {
+					box-shadow: none !important;
+				}
+			}
+		}
+	}
+	&.ng-select-multiple {
+		& .ng-select-container {
+			font-family: $font-family-base !important;
+			line-height: rem(16px);
+			min-height: rem(25px);
+			box-shadow: none !important;
+			margin-bottom: rem(3px);
+			
+			&.ng-has-value {
+				margin-bottom: 0;
+			}
+			& .ng-value-container {
+				padding: 0;
+				
+				& .ng-value {
+					padding: rem(3px) rem(10px) !important;
+					margin-top: 0 !important;
+					margin-bottom: rem(3px) !important;
+					border: none;
+					background: rgba(var(--#{$prefix}inverse-rgb), .15) !important;
+					color: $input-color;
+					border-radius: rem(20px);
+					font-family: $font-family-base !important;
+					line-height: rem(16px);
+					height: rem(25px);
+					
+					& .ng-value-icon {
+						border: none !important;
+						font-size: rem(22px);
+						margin-top: rem(-1px);
+						width: rem(18px);
+						height: rem(18px);
+						color: rgba(var(--#{$prefix}inverse-rgb), .5);
+						background: none !important;
+						
+						&:hover {
+							color: rgba(var(--#{$prefix}inverse-rgb), 1);
+						}
+						
+						@if $enable-rtl {
+							float: left;
+						} @else {
+							float: right;
+						}
+					}
+				}
+				& .ng-input {
+					padding: 0;
+					height: rem(19px);
+					
+					& input {
+						color: $input-color;
+						box-shadow: none !important;
+						height: rem(19px);
+					}
+				}
+			}
+		}
+	}
+	&.ng-select-focused {
+		color: $input-focus-color;
+    background-color: $input-focus-bg;
+    border-color: $input-focus-border-color !important;
+    outline: 0;
+    
+    @if $enable-shadows {
+      @include box-shadow($input-box-shadow, $input-focus-box-shadow);
+    } @else {
+      box-shadow: $input-focus-box-shadow;
+    }
+    
+		& .ng-select-container {
+			background-color: $input-focus-bg !important;
+			border: none !important;
+		}
+	}
+	& .ng-dropdown-panel {
+		background: $dropdown-bg;
+		border-color: $dropdown-border-color;
+		
+		& .ng-dropdown-panel-items {
+			& .ng-option {
+				background: none;
+				color: var(--#{$prefix}body-color);
+				
+				&.ng-option-marked {
+					background:rgba(var(--#{$prefix}inverse-rgb), .15);
+					color: var(--#{$prefix}body-color);
+				}
+				&.ng-option-selected {
+					background: var(--#{$prefix}theme);
+					color: var(--#{$prefix}theme-color);
+				}
+			}
+		}
+	}
+}

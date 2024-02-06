@@ -1,0 +1,73 @@
+<div class="container">
+    <div class="progress" *ngIf="busy">
+        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+    </div>
+    <br />
+
+    <div class="row">
+        <div class="col-sm-1">
+            <button type="button" class="btn btn-outline-light" (click)="goBack()"><h4><i class="bi bi-arrow-left"></i></h4></button>
+        </div>
+        <div class="col-sm-8">
+            <h1 class="center">Create Role</h1><br>
+        </div>
+        <div class="col-sm-2">
+            <button type="submit" class="btn btn-outline-primary w-100 float-right" (click)="save()">
+                Save
+            </button>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="form-group mb-3">
+        <form #f="ngForm" [formGroup]="form" id="roleForm">
+            <div class="row">
+                <div class="col-sm-4">
+                    <label for="companyId" class="form-label">Company</label>
+                    <select class="form-select" id="companyId" #companyId name="companyId" formControlName="companyId" placeholder="Company" required>
+                        <option *ngFor="let company of companies" [value]="company.id">
+                            {{ company.name }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-6">
+                    <label class="form-label" for="menu">Role Name</label>
+                    <input type="text" class="form-control" id="role" placeholder="Role..." formControlName="role" />
+                    <div *ngIf="form.get('role')?.invalid && form.get('role')?.touched" class="help-block">
+                        Role name is required and should be at least 3 characters long.
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label" for="description">Description </label>
+                    <input type="text" class="form-control" id="description" placeholder="Description..." formControlName="description" />
+                    <div *ngIf="form.get('description')?.invalid && form.get('description')?.touched" class="help-block">
+                        Description name is required
+                    </div>
+                </div>
+            </div>
+
+            <br />
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="multi-column-container">
+                        <div *ngFor="let permission of permissionData" class="permission-group">
+                            <h2>{{ permission.module }}</h2>
+                            <ul>
+                                <li *ngFor="let claim of permission.claims">
+                                    <input type="checkbox" id="{{ claim }}" (change)="updateSelectedPermissions($event, claim)"> &nbsp;
+                                    <label [for]="claim"> {{ claim }}</label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <br />
+        </form>
+
+    </div>
+</div>

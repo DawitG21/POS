@@ -1,0 +1,85 @@
+<div class="container">
+    <div class="progress" *ngIf="busy">
+        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75"
+            aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+    </div>
+    <br/>
+  
+    <div class="row">
+        <div class="col-sm-1">
+            <button type="button" class="btn btn-outline-light" (click)="goBack()"><h4><i class="bi bi-arrow-left"></i></h4></button>
+        </div>
+        <div class="col-sm-8">
+            <h1 class="center">Create Customer</h1><br>
+        </div>
+        <div class="col-sm-2">
+            <button type="submit" class="btn btn-outline-primary w-100 float-right" (click)="save()">
+                Save
+            </button>
+        </div>
+    </div>
+<div class="form-group mb-3">
+    <form #f="ngForm" [formGroup]="form" id="customerForm">
+
+        <!-- First Row -->
+        <div class="row">
+            <div class="col-md-6">
+                <label for="companyId" class="form-label">Company</label>
+                <select class="form-select" id="companyId" #companyId name="companyId" formControlName="companyId"
+                    placeholder="Company" required>
+                    <option value="" selected disabled> Choose Company  </option>
+                    <option *ngFor="let company of companies" [value]="company.id">
+                        {{ company.name }}
+                    </option>
+                </select>
+                <br>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label" for="customerName">Customer Name</label>
+                <input type="name" class="form-control" id="customerName" placeholder="Customer Full Name" value="" formControlName="name" />
+                <div *ngIf="!form.get('name')?.valid && form.get('name')?.touched" class="help-block">
+                    Full Name is required
+                </div>
+            </div>
+        </div>
+
+        <!-- Second Row -->
+        <div class="row">
+            <div class="col-md-6">
+                <label class="form-label" for="customerEmail">Email address</label>
+                <input type="email" class="form-control" id="customerEmail" placeholder="Customer Email" value="" formControlName="email" />
+                <div *ngIf="!form.get('email')?.valid && form.get('email')?.touched" class="help-block">
+                    Valid Email Address is required
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label" for="phoneNumber">Phone Number</label>
+                <input type="number" class="form-control" id="phoneNumber" placeholder="+251....." value="" formControlName="phoneNumber" />
+                <div *ngIf="!form.get('phoneNumber')?.valid && form.get('phoneNumber')?.touched" class="help-block">
+                    Valid phone Number is required
+                </div>
+            </div>
+        </div>
+        <br />
+
+        <!-- Third Row -->
+        <div class="row">
+            <div class="col-md-6">
+                <!-- form select -->
+                <label class="form-label" for="country">Country</label>
+                <select class="form-select" formControlName="country">
+                    <option selected>Choose Country</option>
+                    <option value="Ethiopia">Ethiopia</option>
+                </select>
+            </div><br>
+            <div class="col-md-6">
+                <label class="form-label" for="cityInput">City</label>
+                <input type="name" class="form-control" id="cityInput" placeholder="City" value="" formControlName="city" />
+                <div *ngIf="!form.get('city')?.valid && form.get('city')?.touched" class="help-block">
+                    City Name is required
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+</div>

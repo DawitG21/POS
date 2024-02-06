@@ -1,0 +1,17 @@
+<!-- file.ts -->
+import { Component } from '@angular/core';
+import { Validators } from '@angular/forms';
+
+@Component({
+  selector: 'form-plugins',
+  templateUrl: './form-plugins.html'
+})
+
+export class FormPluginsPage {
+  tagsInputValue = [];
+  tagsInputValidator = Validators.required;
+}
+
+
+<!-- html -->
+<tag-input [(ngModel)]="tagsInputValue" [placeholder]="'Add tags'" [secondaryPlaceholder]="'Enter tag'" [validators]="[tagsInputValidator]"></tag-input>

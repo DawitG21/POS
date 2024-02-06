@@ -1,0 +1,200 @@
+<!--loading -->
+<div class="progress" *ngIf="busy">
+  <div
+    class="progress-bar progress-bar-striped progress-bar-animated"
+    role="progressbar"
+    aria-valuenow="75"
+    aria-valuemin="0"
+    aria-valuemax="100"
+    style="width: 100%"
+  ></div>
+</div>
+<!-- BEGIN pos -->
+<card class="pos pos-vertical" id="pos">
+  <!-- BEGIN pos-container -->
+  <card-body class="pos-container">
+    <!-- BEGIN pos-header -->
+    <div class="pos-header">
+      <div class="logo">
+        <a routerLink="/pos/counter-checkout">
+          <div class="logo-img">
+            <i class="bi bi-x-diamond" style="font-size: 1.5rem"></i>
+          </div>
+          <div class="logo-text">Pine & Dine</div>
+        </a>
+      </div>
+
+      <div>
+        <label for="OrderType">Order Type</label>
+        <select name="OrderType" id="" (change)="onOrderTypeFilter($event)">
+          <!-- <option value="Offline">select order type</option> -->
+          <option value="Offline" selected>offline</option>
+          <option value="online">online</option>
+        </select>
+      </div>
+
+      <div class="time" id="time">{{ getTime() }}</div>
+
+      <div>
+        <label for="orderStatus">Order Status</label>
+        <select name="orderStatus" id="" (change)="onOrderStatusFilter($event)">
+          <option value="">All</option>
+          <option value="0">Pending</option>
+          <option value="1">Started</option>
+          <option value="3">Completed</option>
+          <option value="2">Cancelled</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="fromDate">From Date</label>
+        <input
+          type="date"
+          placeholder="salesDate 2021-21-21"
+          (change)="onfromDateSelected($event)"
+        />
+      </div>
+
+      <div>
+        <label for="toDate">To Date</label>
+        <input
+          type="date"
+          placeholder="salesDate 2021-21-21"
+          (change)="ontoDateSelected($event)"
+        />
+      </div>
+      <!-- <div class="nav">
+        <div class="nav-item">
+          <a routerLink="/pos/kitchen-order" class="nav-link">
+            <i class="bi bi-bootstrap-reboot nav-icon"></i>
+          </a>
+        </div>
+        <div class="nav-item">
+          <a routerLink="/pos/table-booking" class="nav-link">
+            <i class="bi bi-calendar-date nav-icon"></i>
+          </a>
+        </div>
+        <div class="nav-item">
+          <a routerLink="/pos/menu-stock" class="nav-link">
+            <i class="bi bi-pie-chart nav-icon"></i>
+          </a>
+        </div>
+      </div> -->
+    </div>
+    <!-- END pos-header -->
+
+    <!-- BEGIN pos-content -->
+    <div class="pos-content">
+      <ng-scrollbar class="pos-content-container h-100 p-0">
+        <!-- <ng-container *ngIf="order"> -->
+        <ng-container *ngIf="kitchenOrder?.length! > 0">
+          <!-- <div class="pos-task" *ngFor="let order of order"> -->
+          <div class="pos-task" *ngFor="let order of kitchenOrder">
+            <div class="pos-task-info">
+              <div class="h3 mb-1">Table: {{ order.tableNo }}</div>
+              <div class="mb-3">Order No: {{ order.orderNo }}</div>
+              <div class="mb-2">
+                <span
+                  class="badge fs-14px"
+                  [ngClass]="{ 'bg-theme text-black': order.orderStatus != 'Completed', 'bg-gray-500 text-white': order.orderStatus == 'Completed'}"
+                  >Order Type: {{ order.orderType }}</span
+                >
+              </div>
+              <div *ngIf="order.orderTime">
+                Order Time:
+                <span [ngClass]="{ 'text-danger fw-bold': order.urgent }"
+                  >{{ formatTime(order.orderTime) }}</span
+                >
+              </div>
+              <!-- <div *ngIf="order.totalOrderTime">
+                All dish served<br />{{ order.totalOrderTime }} total time
+              </div> -->
+            </div>
+            <div class="pos-task-body">
+              <div class="fs-16px mb-3">
+                Completed: ({{ getTotalCompletedItems(order.items) }}/{{
+                order.items.length }})
+              </div>
+              <div class="row gx-4">
+                <div class="col-lg-3 pb-4" *ngFor="let item of order.items">
+                  <div
+                    class="pos-task-product"
+                    [ngClass]="{ 'completed': item.status == 'Completed' || item.status == 'Cancelled' }"
+                  >
+                    <div class="pos-task-product-img">
+                      <div
+                        class="cover"
+                        [style]="{ backgroundImage: 'url(' + prodImageUrl + '/' + item.image + ')' }"
+                      ></div>
+
+                      <div class="caption" *ngIf="item.status == 'Completed'">
+                        <div>Completed</div>
+                      </div>
+                      <div class="caption" *ngIf="item.status == 'Cancelled'">
+                        <div>Cancelled</div>
+                      </div>
+                    </div>
+                    <div class="pos-task-product-info">
+                      <div class="flex-1">
+                        <div class="d-flex mb-2">
+                          <div class="h5 mb-0 flex-1">{{ item.title }}</div>
+                          <div class="h5 mb-0">x{{ item.quantity }}</div>
+                        </div>
+                        <div *ngFor="let note of item.note">- {{ note }}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="pos-task-product-action">
+                <a
+                  class="btn btn-theme"
+                  *ngIf="order.status === 0"
+                  (click)="startOrder(order.orderId)"
+                >
+                  <!-- [ngClass]="{ 'disabled': item.status == 'Completed' || item.status == 'Cancelled' }" -->
+                  <!-- (click)="setItemStatus($event, 'Completed')" -->
+                  <!-- [ngClass]="{ 'disabled': item.status == 'Completed' || item.status == 'Cancelled' }" -->
+                  <!-- (click)="setItemStatus($event, item, 'Completed')" -->
+                  <!-- {{ item.status == 0 ? 'Start' : 'Complete' }} -->
+                  Start
+                </a>
+                <a
+                  class="btn btn-theme"
+                  *ngIf="order.status === 1"
+                  (click)="completeOrder(order.orderId)"
+                >
+                  <!-- [ngClass]="{ 'disabled': item.status == 'Completed' || item.status == 'Cancelled' }" -->
+                  <!-- (click)="setItemStatus($event, 'Completed')" -->
+                  <!-- [ngClass]="{ 'disabled': item.status == 'Completed' || item.status == 'Cancelled' }" -->
+                  <!-- (click)="setItemStatus($event, item, 'Completed')" -->
+                  <!-- {{ item.status == 0 ? 'Start' : 'Complete' }} -->
+                  Complete
+                </a>
+                &nbsp;
+                <a
+                  class="btn btn-outline-default"
+                  *ngIf="order.status === 0"
+                  (click)="CancelOrder(order.orderId)"
+                >
+                  <!-- [ngClass]="{ 'disabled': item.status == 'Completed' || item.status == 'Cancelled' }" -->
+                  <!-- (click)="setItemStatus($event, 'Cancelled')" -->
+                  <!-- [ngClass]="{ 'disabled': item.status == 'Completed' || item.status == 'Cancelled' }" -->
+                  <!-- (click)="setItemStatus($event, item, 'Cancelled')" -->
+                  Cancel
+                </a>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+        <!-- <div class="px-3 py-5 text-center" *ngIf="order"> -->
+        <div class="px-3 py-5 text-center" *ngIf="kitchenOrder?.length! <= 0">
+          No order found (filter more)
+        </div>
+      </ng-scrollbar>
+    </div>
+    <!-- END pos-content -->
+  </card-body>
+  <!-- END pos-container -->
+</card>
+<!-- END pos -->

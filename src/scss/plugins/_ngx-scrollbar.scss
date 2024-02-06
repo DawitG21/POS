@@ -1,0 +1,12 @@
+body .ng-scrollbar {
+	--scrollbar-border-radius: 0;
+	--scrollbar-padding: 1px;
+	--scrollbar-track-color: transparent;
+	--scrollbar-thumb-color: #aaa;
+	--scrollbar-thumb-hover-color: #aaa;
+	--scrollbar-size: 6px;
+	--scrollbar-hover-size: 11px;
+}
+.app-sidebar .scrollbar-control {
+	display: none !important;
+}

@@ -1,0 +1,39 @@
+<card>
+  <card-header class="bg-none fw-bold d-flex align-items-center">
+    Discussion group 
+    <card-expand-toggler class="ms-auto text-muted text-decoration-none">
+      <i class="fa fa-expand"></i>
+    </card-expand-toggler>
+  </card-header>
+  <ng-scrollbar class="card-body bg-inverse bg-opacity-10 h-200px">
+    <div class="widget-chat">
+      <div class="widget-chat-date">Today 14:21</div>
+      <div class="widget-chat-item">
+        <div class="widget-chat-media"><img src="/assets/img/user/user-2.jpg" alt="" /></div>
+        <div class="widget-chat-content">
+          <div class="widget-chat-name">Roberto Lambert</div>
+          <div class="widget-chat-message">
+            Not much, It's got a new look, contact pics show up in group messaging, some other small stuff.
+          </div>
+          <div class="widget-chat-message last">
+            How's crusty old iOS 6 treating you?
+          </div>
+        </div>
+      </div>
+      <div class="widget-chat-item reply">
+        <div class="widget-chat-content">
+          <div class="widget-chat-message last">
+            Sucks
+          </div>
+          <div class="widget-chat-status"><b>Read</b> 16:30</div>
+        </div>
+      </div>
+    </div>
+  </ng-scrollbar>
+  <card-footer class="bg-none">
+    <div class="input-group">
+      <input type="text" class="form-control" placeholder="Search for...">
+      <button class="btn btn-outline-default" type="button"><i class="fa fa-paper-plane text-muted"></i></button>
+    </div>
+  </card-footer>
+</card>

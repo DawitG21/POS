@@ -1,0 +1,9 @@
+body ngb-typeahead-window {
+	& .dropdown-item {
+		&.active, 
+		&:active {
+			color: var(--#{$prefix}theme-color);
+			background-color: var(--#{$prefix}theme);
+		}
+	}
+}

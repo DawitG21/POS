@@ -1,0 +1,153 @@
+<div class="container">
+    <div class="progress" *ngIf="busy">
+      <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75"
+        aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+    </div>
+    <br/>
+    <div class="row">
+      <div class="col-sm-1">
+        <button type="button" class="btn btn-outline-light" (click)="goBack()">
+          <h4><i class="bi bi-arrow-left"></i></h4>
+        </button>
+      </div>
+      <div class="col-sm-8">
+        <h1 class="center">Add Setting</h1><br>
+      </div>
+      <div class="col-sm-2">
+        <button
+          type="submit"
+          class="btn btn-outline-primary w-100 float-right"
+          (click)="onSubmit()"
+          [disabled]="!settingForm.valid"
+        >
+          Save
+        </button>
+      </div>
+    </div>
+  
+    <form #settingForm="ngForm" (ngSubmit)="onSubmit()" [formGroup]="form" id="settingForm" class="row">
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="md-3"><label for="companyId" class="form-label">Company</label>
+            <select class="form-select" id="companyId" #companyId name="companyId" formControlName="companyId"
+                placeholder="Company" required>
+                      this.companyId = this.authService.getCompanyId;
+                      <option value="" selected disabled> Choose Company  </option>
+                      <option *ngFor="let company of companies" [value]="company.id">
+                    {{ company.name }}
+                </option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <!-- Name Input -->
+          <div class="mb-3">
+            <label for="cashonhand">Cash On Hand</label>
+            <input
+              type="text"
+              class="form-control"
+              id="cashonhand"
+              name="cashonhand"
+              formControlName="cashonhand"
+              
+            />
+          </div>
+        </div>
+      </div>
+    
+      <div class="row">
+        <div class="col-md-6">
+          <!-- Short Name Input -->
+          <div class="mb-3">
+            <label for="cogs">Cogs</label>
+            <input
+              type="text"
+              class="form-control"
+              id="cogs"
+              name="cogs"
+              formControlName="cogs"
+              
+            />
+          </div>
+        </div>
+        <div class="col-md-6">
+          <!-- Base Unit Input in a new row -->
+          <div class="mb-3">
+            <label for="discount">Discount</label>
+            <input
+              type="text"
+              class="form-control"
+              id="discount"
+              name="discount"
+              formControlName="discount"
+              
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <!-- Base Unit Input in a new row -->
+          <div class="mb-3">
+            <label for="vat">Vat</label>
+            <input
+              type="text"
+              class="form-control"
+              id="vat"
+              name="vat"
+              formControlName="vat"
+              
+            />
+          </div>
+        </div>
+        <div class="col-md-6">
+          <!-- Base Unit Input in a new row -->
+          <div class="mb-3">
+            <label for="accountsreceivable">Accounts Receivable</label>
+            <input
+              type="text"
+              class="form-control"
+              id="accountsreceivable"
+              name="accountsreceivable"
+              formControlName="accountsreceivable"
+              
+            />
+          </div>
+        </div>
+      </div>
+    
+      <div class="row">
+        <div class="col-md-6">
+          <!-- Base Unit Input in a new row -->
+          <div class="mb-3">
+            <label for="salesrevenue">Sales Revenue</label>
+            <input
+              type="text"
+              class="form-control"
+              id="salesrevenue"
+              name="salesrevenue"
+              formControlName="salesrevenue"
+              
+            />
+          </div>
+        </div>
+        <div class="col-md-6">
+          <!-- Base Unit Input in a new row -->
+          <div class="mb-3">
+            <label for="accountspayable">Accounts Payable</label>
+            <input
+              type="text"
+              class="form-control"
+              id="accountspayable"
+              name="accountspayable"
+              formControlName="accountspayable"
+              
+            />
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  

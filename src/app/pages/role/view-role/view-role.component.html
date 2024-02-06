@@ -1,0 +1,135 @@
+<div>
+    <h2>Roles</h2>
+    <div class="progress" *ngIf="busy">
+        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+    </div>
+    <br>
+
+    <div class="d-flex justify-content-between mb-2">
+        <div class="col-md-4 d-flex justify-content-start">
+            <input type="text" class="form-control" placeholder="Search" [(ngModel)]="searchRoleTerm" />
+        </div>
+
+        <div class="col-md-6 d-flex justify-content-end">
+            <button class="btn btn-outline-theme btn-lg" *ngIf="claims && claims.create_roles" (click)="goCreateRole()">Add Role</button>
+        </div>
+    </div>
+
+    <table class="table  table-hover mt-3">
+        <thead class="table-light">
+            <tr>
+                <th>Role Name</th>
+                <th>Description </th>
+                <th>Company Name</th>
+                <th>Created On</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let role of roles! | customFilterStore: searchRoleTerm">
+                <td>{{ role.role }}</td>
+                <td>{{ role.description }}</td>
+                <td>{{ role.company ? role.company.name : 'admin' }}</td>
+                <td>{{ role.createdOn | date : "short" }}</td>
+                <td>
+                    <button mat-icon-button class="btn btn-outline-success me-3" matTooltip="View" (click)="view(role)">
+                        <i class="bi bi-eye icon-xxl"></i>
+                    </button>
+
+                    <button mat-icon-button class="btn btn-outline-primary me-3" matTooltip="edit" *ngIf="claims && claims.create_roles" (click)="goEditRole(role)">
+                        <i class="bi bi-pencil icon-xxl"></i>
+                    </button>
+
+                    <button mat-icon-button class="btn btn-outline-danger me-3" matTooltip="delete" *ngIf="claims && claims.delete_roles" (click)="delete(role)">
+                        <i class="bi bi-trash icon-xxl"></i>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Pagination -->
+    <div class="row justify-content-between">
+
+        <div class="col-md-auto">
+            <select class="form-select" (change)="setPageSize($event)">
+        <option value="10">10 per page</option>
+        <option value="20">20 per page</option>
+      </select>
+        </div>
+        <div class="col-md-auto">
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-end">
+                    <li class="page-item">
+                        <a class="page-link" aria-label="Previous" (click)="setCurrentPage(page - 1)">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+
+                    <!-- Use ngClass to conditionally apply a class based on the current page -->
+                    <li class="page-item" *ngFor="let currentPage of pages; let i = index" [class.active]="page === i + 1">
+                        <a class="page-link" (click)="setCurrentPage(i + 1)">{{ i + 1 }}</a>
+                    </li>
+
+                    <!-- Add more page numbers as needed -->
+                    <li class="page-item">
+                        <a class="page-link" aria-label="Next" (click)="setCurrentPage(page + 1)">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+
+<!-- View Modal -->
+<ng-template #viewModal let-modal>
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="viewModalLabel">Role Details</h5>
+                <button type="button" class="btn-close" (click)="modal.dismiss('Cross click')" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4>{{ role.role }}</h4>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <p>Description : {{ role.description }}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <p>Company: {{ role.company.name }}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table table-hover mt-3">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Claims Name</th>
+                                </tr>
+                            </thead>
+                            <tbody style="max-height: 200px; overflow-y: auto; display: flex; flex-wrap: wrap;">
+                                <tr *ngFor="let claim of role.claims">
+                                    <td style="width: 50%;">{{ claim }}</td>
+                                    <td *ngIf="role.claims.indexOf(claim) % 2 !== role.claims.length - 1" style="width: 50%; text-align: right;">|</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+</ng-template>

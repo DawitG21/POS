@@ -1,0 +1,25 @@
+import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
+import { debounceTime, 
+         distinctUntilChanged, 
+         map } from 'rxjs/operators';
+
+@Component({
+  selector: 'form-plugins',
+  templateUrl: './form-plugins.html'
+})
+
+export class FormPluginsPage {
+  typeaheadItems = ['Afghanistan', 'Albania', 'Algeria'];
+  typeaheadSelectedItem = '';
+  
+  typeaheadSearch = (text$: Observable<string>) => text$.pipe(
+    debounceTime(200),
+    distinctUntilChanged(),
+    map((term: string) => term.length < 2 ? [] : this.typeaheadItems.filter(item => item.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
+  );
+
+  typeaheadFormatResult(item: any): string {
+    return item;
+  }
+}

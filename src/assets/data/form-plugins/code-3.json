@@ -1,0 +1,44 @@
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'form-plugins',
+  templateUrl: './form-plugins.html'
+})
+
+export class FormPluginsPage {
+	timepickerDefaultValue = { hour: 0, minute: 0 };
+	timepickerComponentValue = { hour: 0, minute: 0 };
+	timepickerComponentMeridian: boolean = true;
+	timepickerInlineValue = { hour: 0, minute: 0 };
+  
+  formatTime(time: any) {
+    var value = '00:00';
+    if (time.hour || time.minute) {
+      value = (time.hour < 9) ? '0'+ time.hour : time.hour;
+      value += ':';
+      value += (time.minute < 9) ? '0'+ time.minute : time.minute;
+    }
+    return value;
+  }
+}
+
+
+<!-- default -->
+<div>
+  <input type="text" class="form-control" [value]="formatTime(timepickerDefaultValue)" data-bs-toggle="dropdown" data-bs-auto-close="outside">
+  <div class="dropdown-menu p-2">
+    <ngb-timepicker [(ngModel)]="timepickerDefaultValue"></ngb-timepicker>
+  </div>
+</div>
+
+<!-- component -->
+<div class="input-group">
+  <input class="form-control" [value]="formatTime(timepickerComponentValue)" placeholder="with input group addon" />
+  <div class="dropdown-menu dropdown-menu-end p-2">
+    <ngb-timepicker [(ngModel)]="timepickerComponentValue" [meridian]="timepickerComponentMeridian"></ngb-timepicker>
+  </div>
+  <button class="btn btn-outline-default bi bi-clock" data-bs-toggle="dropdown" data-bs-auto-close="outside" type="button"></button>
+</div>
+
+<!-- inline -->
+<ngb-timepicker [(ngModel)]="timepickerInlineValue"></ngb-timepicker>

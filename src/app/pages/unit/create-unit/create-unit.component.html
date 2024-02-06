@@ -1,0 +1,113 @@
+<div class="container">
+    <div class="progress" *ngIf="busy">
+        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75"
+            aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+    </div>
+    <br/>
+    <div class="row">
+      <div class="col-sm-1">
+          <button type="button" class="btn btn-outline-light" (click)="goBack()"><h4><i class="bi bi-arrow-left"></i></h4></button>
+      </div>
+      <div class="col-sm-8">
+          <h1 class="center">Add Unit</h1><br>
+      </div>
+      <div class="col-sm-2">
+        <button
+          type="submit"
+          class="btn btn-outline-primary w-100 float-right"
+          (click)="onSubmit()"
+          [disabled]="!unitForm.valid"
+        >
+          Save
+        </button>
+      </div>
+    <form #unitForm="ngForm" (ngSubmit)="onSubmit()" [formGroup]="form" id="unitForm">
+      <div class="row">
+        <div class="col-md-6">
+          <label for="companyId" class="form-label">Company</label>
+          <select class="form-select" id="companyId" #companyId name="companyId" formControlName="companyId"
+              placeholder="Company" required>
+              <option value="" selected disabled> Choose Company  </option>
+              <option *ngFor="let company of companies" [value]="company.id">
+                  {{ company.name }}
+              </option>
+          </select>
+          <br>
+        </div>
+        <div class="col-md-6">
+          <!-- Name Input -->
+            <label for="name" class="form-label">Unit Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="name"
+              name="name"
+              formControlName="name"
+              required
+            />
+            <br>
+          </div>   
+      </div>
+    
+      <div class="row">
+        <div class="col-md-6">
+          <!-- Short Name Input -->
+            <label for="shortname">Short Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="shortname"
+              name="shortname"
+              formControlName="shortname"
+              required
+            />
+            <br>
+        </div>
+        
+
+        <div class="col-md-6">
+          <!-- Base Unit Input in a new row -->
+            <label for="baseunit">Base Unit</label>
+            <input
+              type="text"
+              class="form-control"
+              id="baseunit"
+              name="baseunit"
+              formControlName="baseunit"
+              required
+            />
+            <br>
+        </div>
+      </div>
+    
+      <div class="mb-3">
+        <!-- Status Toggle -->
+        <div class="form-check form-switch">
+          <input
+            type="checkbox"
+            class="form-check-input"
+            id="status"
+            name="status"
+            [checked]="unit.status"
+            formControlName="status"
+            (change)="onStatusChange($event)"
+          />
+          <label class="form-check-label" for="statusSwitch">Status</label>
+        </div>
+      </div>
+    
+    <!-- Submit Button -->
+      <!-- <div class="col-sm-2">
+        <button
+          type="submit"
+          class="btn btn-outline-theme btn-lg"
+          [disabled]="!unitForm.valid"
+        >
+          Submit
+        </button>
+      </div> -->
+    </form>
+    
+    
+ </div>
+
